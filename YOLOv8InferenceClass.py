@@ -5,7 +5,8 @@ from time import time
 from ultralytics import YOLO
 
 from supervision.draw.color import ColorPalette
-from supervision.tools.detections import Detections, BoxAnnotator
+from supervision import Detections
+from supervision import BoxAnnotator
 
 
 class ObjectDetection:
@@ -21,7 +22,7 @@ class ObjectDetection:
         
         self.CLASS_NAMES_DICT = self.model.model.names
     
-        self.box_annotator = BoxAnnotator(color=ColorPalette(), thickness=3, text_thickness=3, text_scale=1.5)
+        self.box_annotator = BoxAnnotator(color=ColorPalette.default(), thickness=3, text_thickness=3, text_scale=1.5)
     
 
     def load_model(self):
