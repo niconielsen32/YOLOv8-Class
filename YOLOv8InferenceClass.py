@@ -71,7 +71,7 @@ class ObjectDetection:
         in detections]
         
         # Annotate and display frame
-        frame = self.box_annotator.annotate(frame=frame, detections=detections, labels=self.labels)
+        frame = self.box_annotator.annotate(scene=frame, detections=detections, labels=self.labels)
         
         return frame
     
