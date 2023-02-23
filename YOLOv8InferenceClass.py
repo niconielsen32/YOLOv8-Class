@@ -4,9 +4,7 @@ import cv2
 from time import time
 from ultralytics import YOLO
 
-from supervision.draw.color import ColorPalette
-from supervision import Detections
-from supervision import BoxAnnotator
+import supervision as sv
 
 
 class ObjectDetection:
@@ -22,7 +20,7 @@ class ObjectDetection:
         
         self.CLASS_NAMES_DICT = self.model.model.names
     
-        self.box_annotator = BoxAnnotator(color=ColorPalette.default(), thickness=3, text_thickness=3, text_scale=1.5)
+        self.box_annotator = sv.BoxAnnotator(sv.ColorPalette.default(), thickness=3, text_thickness=3, text_scale=1.5)
     
 
     def load_model(self):
@@ -58,7 +56,7 @@ class ObjectDetection:
             
         
         # Setup detections for visualization
-        detections = Detections(
+        detections = sv.Detections(
                     xyxy=results[0].boxes.xyxy.cpu().numpy(),
                     confidence=results[0].boxes.conf.cpu().numpy(),
                     class_id=results[0].boxes.cls.cpu().numpy().astype(int),
