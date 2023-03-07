@@ -44,15 +44,18 @@ class ObjectDetection:
         confidences = []
         class_ids = []
         
-        # Extract detections for person class
-        for result in results[0]:
-            class_id = result.boxes.cls.cpu().numpy().astype(int)
-            
-            if class_id == 0:
-                
-                xyxys.append(result.boxes.xyxy.cpu().numpy())
-                confidences.append(result.boxes.conf.cpu().numpy())
-                class_ids.append(result.boxes.cls.cpu().numpy().astype(int))
+         # Extract detections for person class
+        for result in results:
+            boxes = result.boxes.cpu().numpy()
+            class_id = boxes.cls[0]
+            conf = boxes.conf[0]
+            xyxy = boxes.xyxy[0]
+
+            if class_id == 0.0:
+          
+              xyxys.append(result.boxes.xyxy.cpu().numpy())
+              confidences.append(result.boxes.conf.cpu().numpy())
+              class_ids.append(result.boxes.cls.cpu().numpy().astype(int))
             
         
         # Setup detections for visualization
