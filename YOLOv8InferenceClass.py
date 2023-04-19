@@ -47,6 +47,11 @@ class ObjectDetection:
          # Extract detections for person class
         for result in results:
             boxes = result.boxes.cpu().numpy()
+           
+            print(boxes.cls)
+            if (boxes.cls.size == 0):
+                continue
+
             class_id = boxes.cls[0]
             conf = boxes.conf[0]
             xyxy = boxes.xyxy[0]
@@ -66,10 +71,10 @@ class ObjectDetection:
                     )
         
     
-        # Format custom labels
         self.labels = [f"{self.CLASS_NAMES_DICT[class_id]} {confidence:0.2f}"
-        for _, confidence, class_id, tracker_id
+        for _,_,confidence,  class_id,  _,
         in detections]
+        print(self.labels)
         
         # Annotate and display frame
         frame = self.box_annotator.annotate(scene=frame, detections=detections, labels=self.labels)
@@ -103,7 +108,6 @@ class ObjectDetection:
             cv2.imshow('YOLOv8 Detection', frame)
  
             if cv2.waitKey(5) & 0xFF == 27:
-                
                 break
         
         cap.release()
